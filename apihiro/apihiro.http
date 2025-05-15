@@ -1,0 +1,6 @@
+@apihiro_HostAddress = http://localhost:5086
+
+GET {{apihiro_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
