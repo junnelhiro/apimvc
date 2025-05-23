@@ -8,8 +8,13 @@ namespace apihiro.Db
     {
         public MapperProfile()
         {
-            CreateMap<MyModel,Employee>() ;
-
+            CreateMap<MyModel, Employee>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.MiddleName, opt => opt.Ignore())
+                .ForMember(dest => dest.manualColumn, opt => opt.Ignore())
+                .ReverseMap()
+                ; 
+            CreateProjection<Employee, MyModel>();
         }
     }
 }

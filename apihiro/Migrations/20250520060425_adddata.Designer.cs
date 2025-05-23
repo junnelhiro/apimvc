@@ -12,8 +12,8 @@ using apihiro.Db;
 namespace apihiro.Migrations
 {
     [DbContext(typeof(WebContext))]
-    [Migration("20250516053822_initial")]
-    partial class initial
+    [Migration("20250520060425_adddata")]
+    partial class adddata
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,30 @@ namespace apihiro.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("apihiro.Models.Entities.Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "HR"
+                        });
+                });
 
             modelBuilder.Entity("apihiro.Models.Entities.Employee", b =>
                 {
@@ -36,7 +60,6 @@ namespace apihiro.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MiddleName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -85,9 +108,21 @@ namespace apihiro.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "jhon",
+                            Password = "$2a$11$sR34AGmNkZt6g3AD0WcyJujRdw4kr.BFuuwvYjreZCLjbvOdHHlq."
+                        });
                 });
 
             modelBuilder.Entity("apihiro.Models.Entities.Person", b =>

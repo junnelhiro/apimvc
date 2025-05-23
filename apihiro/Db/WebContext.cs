@@ -9,7 +9,14 @@ public class WebContext : DbContext
     {
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.SeedData();
+    }
+
     public DbSet<Employee> Employees { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Person> People { get; set; }
+    public DbSet<Department> Departments { get; set; }
 }

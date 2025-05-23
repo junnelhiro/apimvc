@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using apihiro.Db;
 
@@ -11,9 +12,11 @@ using apihiro.Db;
 namespace apihiro.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20250520055312_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,14 +115,6 @@ namespace apihiro.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "jhon",
-                            Password = "$2a$11$sR34AGmNkZt6g3AD0WcyJujRdw4kr.BFuuwvYjreZCLjbvOdHHlq."
-                        });
                 });
 
             modelBuilder.Entity("apihiro.Models.Entities.Person", b =>
