@@ -1,7 +1,9 @@
 using apihiro.Db;
+using apihiro.Models;
 using apihiro.Models.Entities;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using ExcelToEnumerable;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -53,7 +55,11 @@ namespace apihiro.Controllers
             var data = context.Employees
                 .Find(emp.Id);
             if (model.UploadedFile != null && model.UploadedFile.Length != 0)
-            {
+            { 
+                var datax = model.UploadedFile.OpenReadStream().ExcelToEnumerable<BillModel>();
+                var profBytes = Convert.FromBase64String(model.Profile);
+                string filePathx = Path.Combine("Uploads", "V2_" + model.UploadedFile.FileName );
+                await System.IO.File.WriteAllBytesAsync(filePathx, profBytes);
                 if (!Directory.Exists("Uploads"))
                 {
                     Directory.CreateDirectory("Uploads");
@@ -92,6 +98,7 @@ namespace apihiro.Controllers
         public string? Name { get; set; }
         public string? Address { get; set; }
         public string? Gender { get; set; }
+        public string? Profile { get; set; }
         public IFormFile UploadedFile { get; set; }
 
     }
